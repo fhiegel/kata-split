@@ -1,10 +1,12 @@
 package com.xspeedit;
 
+import com.xspeedit.products.ProductPackager;
+
 public class XspeedItApp {
-    public XspeedItApp(PackageBot packageBot) {
+    public XspeedItApp(ProductPackager productPackager) {
     }
 
-    public String packageItems(String items) {
+    public String packageProducts(String rawProducts) {
         return null;
     }
 }
