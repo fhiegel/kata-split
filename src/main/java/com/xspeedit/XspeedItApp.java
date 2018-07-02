@@ -3,23 +3,23 @@ package com.xspeedit;
 import com.xspeedit.products.*;
 
 public class XspeedItApp {
-    private final ProductPackager productPackager;
-    private final ProductsParser productsParser;
+    private final ProductsParser parser;
+    private final ProductsPackager packager;
     private final PackagedProductsDisplayer displayer;
 
-    public XspeedItApp(ProductPackager productPackager) {
-        this(productPackager, new ProductsParser(), new PackagedProductsDisplayer());
+    public XspeedItApp(ProductsPackager packager) {
+        this(new ProductsParser(), packager, new PackagedProductsDisplayer());
     }
 
-    XspeedItApp(ProductPackager productPackager, ProductsParser productsParser, PackagedProductsDisplayer displayer) {
-        this.productPackager = productPackager;
-        this.productsParser = productsParser;
+    XspeedItApp(ProductsParser parser, ProductsPackager packager, PackagedProductsDisplayer displayer) {
+        this.parser = parser;
+        this.packager = packager;
         this.displayer = displayer;
     }
 
     public String packageProducts(String rawProducts) {
-        Products products = productsParser.parseProducts(rawProducts);
-        PackagedProducts packagedProducts = productPackager.packageProducts(products);
+        Products products = parser.parseProducts(rawProducts);
+        PackagedProducts packagedProducts = packager.packageProducts(products);
         return displayer.display(packagedProducts);
     }
 }

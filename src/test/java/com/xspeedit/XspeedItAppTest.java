@@ -22,7 +22,7 @@ public class XspeedItAppTest {
     @Mock
     private ProductsParser parser;
     @Mock
-    private ProductPackager packager;
+    private ProductsPackager packager;
     @Mock
     private PackagedProductsDisplayer displayer;
 

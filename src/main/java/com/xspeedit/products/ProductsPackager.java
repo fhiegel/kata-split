@@ -1,6 +1,6 @@
 package com.xspeedit.products;
 
-public class ProductPackager {
+public class ProductsPackager {
     public PackagedProducts packageProducts(Products products) {
         return new PackagedProducts();
     }
