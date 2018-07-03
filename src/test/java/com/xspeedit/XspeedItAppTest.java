@@ -39,7 +39,7 @@ public class XspeedItAppTest {
 
     @Test
     public void should_package_given_products() {
-        Products products = new Products();
+        Products products = Products.EMPTY;
         given(parser.parseProducts(eq(RAW_PRODUCTS))).willReturn(products);
 
         app.packageProducts(RAW_PRODUCTS);
@@ -49,7 +49,7 @@ public class XspeedItAppTest {
 
     @Test
     public void should_display_packaged_products() {
-        Products products = new Products();
+        Products products = Products.EMPTY;
         given(parser.parseProducts(eq(RAW_PRODUCTS))).willReturn(products);
         PackagedProducts packagedProducts = new PackagedProducts();
         given(packager.packageProducts(eq(products))).willReturn(packagedProducts);
