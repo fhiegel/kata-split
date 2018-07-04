@@ -34,4 +34,8 @@ public class Product {
     public int hashCode() {
         return Objects.hash(size);
     }
+
+    public int size() {
+        return size;
+    }
 }

@@ -51,7 +51,7 @@ public class XspeedItAppTest {
     public void should_display_packaged_products() {
         Products products = Products.EMPTY;
         given(parser.parseProducts(eq(RAW_PRODUCTS))).willReturn(products);
-        PackagedProducts packagedProducts = new PackagedProducts();
+        PackagedProducts packagedProducts = PackagedProducts.EMPTY;
         given(packager.packageProducts(eq(products))).willReturn(packagedProducts);
 
         app.packageProducts(RAW_PRODUCTS);
