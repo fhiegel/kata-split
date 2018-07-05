@@ -1,12 +1,13 @@
 package com.xspeedit.products;
 
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
-public class PackagedProducts implements Iterable<Pack> {
+public class PackagedProducts {
 
     public static final PackagedProducts EMPTY = new PackagedProducts(Collections.emptyList());
 
@@ -20,32 +21,21 @@ public class PackagedProducts implements Iterable<Pack> {
         return of(Stream.of(packs));
     }
 
-    public static PackagedProducts of(Iterable<Pack> packs) {
-        return of(StreamSupport.stream(packs.spliterator(), false));
-    }
-
     private static PackagedProducts of(Stream<Pack> packs) {
         return new PackagedProducts(packs.collect(Collectors.toList()));
-    }
-
-    @Override
-    public Iterator<Pack> iterator() {
-        return packs.iterator();
-    }
-
-    @Override
-    public void forEach(Consumer<? super Pack> action) {
-        packs.forEach(action);
-    }
-
-    @Override
-    public Spliterator<Pack> spliterator() {
-        return packs.spliterator();
     }
 
     public Stream<Pack> stream() {
         return packs.stream();
     }
+
+    public PackagedProducts add(Pack pack) {
+        Collection<Pack> nextPacks = new ArrayList<>(packs);
+        nextPacks.add(pack);
+        return new PackagedProducts(nextPacks);
+    }
+
+    // Object implementation methods
 
     @Override
     public String toString() {
@@ -70,6 +60,5 @@ public class PackagedProducts implements Iterable<Pack> {
     public int hashCode() {
         return Objects.hash(packs);
     }
-
 
 }

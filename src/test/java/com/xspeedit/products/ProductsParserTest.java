@@ -14,7 +14,7 @@ public class ProductsParserTest {
 
         Products products = productsParser.parseProducts(rawProducts);
 
-        assertThat(products).contains(Product.fromSize(1));
+        assertThat(products.stream()).contains(Product.fromLength(1));
     }
 
     @Test
@@ -23,7 +23,7 @@ public class ProductsParserTest {
 
         Products products = productsParser.parseProducts(rawProducts);
 
-        assertThat(products).containsExactly(Product.fromSize(1), Product.fromSize(2), Product.fromSize(3));
+        assertThat(products.stream()).containsExactly(Product.fromLength(1), Product.fromLength(2), Product.fromLength(3));
     }
 
     @Test
@@ -32,6 +32,6 @@ public class ProductsParserTest {
 
         Products products = productsParser.parseProducts(rawProducts);
 
-        assertThat(products).isEmpty();
+        assertThat(products.stream()).isEmpty();
     }
 }

@@ -3,14 +3,14 @@ package com.xspeedit.products;
 import java.util.Objects;
 
 public class Product {
-    private final int size;
+    private final int length;
 
-    private Product(int size) {
-        this.size = size;
+    private Product(int length) {
+        this.length = length;
     }
 
-    public static Product fromSize(int size) {
-        return new Product(size);
+    public static Product fromLength(int length) {
+        return new Product(length);
     }
 
     // Object implementation methods
@@ -18,7 +18,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "size=" + size +
+                "length=" + length +
                 '}';
     }
 
@@ -27,15 +27,15 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return size == product.size;
+        return length == product.length;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(size);
+        return Objects.hash(length);
     }
 
-    public int size() {
-        return size;
+    public int length() {
+        return length;
     }
 }

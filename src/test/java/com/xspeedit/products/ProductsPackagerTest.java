@@ -18,7 +18,7 @@ public class ProductsPackagerTest {
 
         PackagedProducts packagedProducts = productsPackager.packageProducts(products);
 
-        assertThat(packagedProducts).contains(Pack.of(PRODUCT_OF_SIZE_ONE));
+        assertThat(packagedProducts.stream()).contains(Pack.of(PRODUCT_OF_SIZE_ONE));
     }
 
     @Test
@@ -27,7 +27,7 @@ public class ProductsPackagerTest {
 
         PackagedProducts packagedProducts = productsPackager.packageProducts(products);
 
-        assertThat(packagedProducts).contains(Pack.of(PRODUCT_OF_SIZE_ONE, PRODUCT_OF_SIZE_ONE, PRODUCT_OF_SIZE_THREE));
+        assertThat(packagedProducts.stream()).contains(Pack.of(PRODUCT_OF_SIZE_ONE, PRODUCT_OF_SIZE_ONE, PRODUCT_OF_SIZE_THREE));
     }
 
     @Test
@@ -36,12 +36,12 @@ public class ProductsPackagerTest {
 
         PackagedProducts packagedProducts = productsPackager.packageProducts(products);
 
-        assertThat(packagedProducts).containsExactly(
+        assertThat(packagedProducts.stream()).containsExactly(
                 Pack.of(PRODUCT_OF_SIZE_FIVE, PRODUCT_OF_SIZE_FIVE),
                 Pack.of(PRODUCT_OF_SIZE_FIVE));
     }
 
     private static Product aProduct(int productSize) {
-        return Product.fromSize(productSize);
+        return Product.fromLength(productSize);
     }
 }

@@ -1,12 +1,11 @@
 package com.xspeedit.products;
 
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
-public class Products implements Iterable<Product>{
+public class Products {
 
     public static final Products EMPTY = new Products(Collections.emptyList());
 
@@ -20,26 +19,17 @@ public class Products implements Iterable<Product>{
         return of(Stream.of(products));
     }
 
-    public static Products of(Iterable<Product> products) {
-        return of(StreamSupport.stream(products.spliterator(), false));
-    }
-
     public static Products of(Stream<Product> products) {
         return new Products(products.collect(Collectors.toList()));
     }
 
-    @Override
-    public Iterator<Product> iterator() {
-        return products.iterator();
+    public Stream<Product> stream() {
+        return products.stream();
     }
 
-    @Override
-    public void forEach(Consumer<? super Product> action) {
-        products.forEach(action);
+    public Iterable<Product> iterate() {
+        return products;
     }
 
-    @Override
-    public Spliterator<Product> spliterator() {
-        return products.spliterator();
-    }
 }
+

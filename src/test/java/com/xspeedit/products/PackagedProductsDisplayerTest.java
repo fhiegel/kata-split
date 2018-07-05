@@ -10,7 +10,7 @@ public class PackagedProductsDisplayerTest {
 
     @Test
     public void should_display_a_single_packaged_product() {
-        PackagedProducts packagedProducts = PackagedProducts.of(Pack.of(Product.fromSize(1)));
+        PackagedProducts packagedProducts = PackagedProducts.of(Pack.of(Product.fromLength(1)));
 
         String display = displayer.display(packagedProducts);
 
@@ -19,7 +19,7 @@ public class PackagedProductsDisplayerTest {
 
     @Test
     public void should_display_a_multiple_products_in_single_pack() {
-        PackagedProducts packagedProducts = PackagedProducts.of(Pack.of(Product.fromSize(1), Product.fromSize(2)));
+        PackagedProducts packagedProducts = PackagedProducts.of(Pack.of(Product.fromLength(1), Product.fromLength(2)));
 
         String display = displayer.display(packagedProducts);
 
@@ -28,7 +28,7 @@ public class PackagedProductsDisplayerTest {
 
     @Test
     public void should_display_a_multiple_products_in_multiple_packs() {
-        PackagedProducts packagedProducts = PackagedProducts.of(Pack.of(Product.fromSize(1)),Pack.of(Product.fromSize(1)));
+        PackagedProducts packagedProducts = PackagedProducts.of(Pack.of(Product.fromLength(1)),Pack.of(Product.fromLength(1)));
 
         String display = displayer.display(packagedProducts);
 

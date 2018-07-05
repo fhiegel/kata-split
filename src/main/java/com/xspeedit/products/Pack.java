@@ -1,19 +1,24 @@
 package com.xspeedit.products;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
-public class Pack implements Iterable<Product> {
+public class Pack {
 
     public static final Pack EMPTY = new Pack(Collections.emptyList());
-    private static final long LIMIT = 10;
 
+    private static final long DEFAULT_PACK_TOTAL_LENGTH = 10;
+
+    private final long packTotalLength;
     private final Collection<Product> products;
 
     private Pack(Collection<Product> products) {
+        this(DEFAULT_PACK_TOTAL_LENGTH, products);
+    }
+
+    private Pack(long packTotalLength, Collection<Product> products) {
+        this.packTotalLength = packTotalLength;
         this.products = Collections.unmodifiableCollection(products);
     }
 
@@ -21,41 +26,20 @@ public class Pack implements Iterable<Product> {
         return of(Stream.of(products));
     }
 
-    public static Pack of(Iterable<Product> products) {
-        return of(StreamSupport.stream(products.spliterator(), false));
-    }
-
     private static Pack of(Stream<Product> products) {
         return new Pack(products.collect(Collectors.toList()));
     }
 
     public Pack add(Product product) {
-        return of(potentialPack(product));
-    }
-
-    private Stream<Product> potentialPack(Product product) {
-        return Stream.concat(products.stream(), Stream.of(product));
+        Collection<Product> nextProducts = new ArrayList<>(products);
+        nextProducts.add(product);
+        return new Pack(packTotalLength, nextProducts);
     }
 
     public boolean canContain(Product product) {
-        return potentialPack(product)
-                .mapToInt(Product::size)
-                .sum() <= LIMIT;
-    }
-
-    @Override
-    public Iterator<Product> iterator() {
-        return products.iterator();
-    }
-
-    @Override
-    public void forEach(Consumer<? super Product> action) {
-        products.forEach(action);
-    }
-
-    @Override
-    public Spliterator<Product> spliterator() {
-        return products.spliterator();
+        return Stream.concat(stream(), Stream.of(product))
+                .mapToInt(Product::length)
+                .sum() <= packTotalLength;
     }
 
     public Stream<Product> stream() {

@@ -1,24 +1,22 @@
 package com.xspeedit.products;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class ProductsPackager {
+
     public PackagedProducts packageProducts(Products products) {
-        Collection<Pack> packs = new ArrayList<>();
+
+        PackagedProducts packagedProducts = PackagedProducts.EMPTY;
 
         Pack pack = Pack.EMPTY;
-        for (Product product : products) {
-            if (pack.canContain(product)) {
-                pack = pack.add(product);
-            } else {
-                packs.add(pack);
+        for (Product product : products.iterate()) {
+            if (!pack.canContain(product)) {
+                packagedProducts = packagedProducts.add(pack);
                 pack = Pack.EMPTY;
-                pack = pack.add(product);
             }
+            pack = pack.add(product);
         }
-        packs.add(pack);
+        packagedProducts = packagedProducts.add(pack);
 
-        return PackagedProducts.of(packs);
+        return packagedProducts;
     }
+
 }
