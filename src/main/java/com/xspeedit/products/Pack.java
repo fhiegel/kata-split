@@ -29,6 +29,20 @@ public class Pack implements Iterable<Product> {
         return new Pack(products.collect(Collectors.toList()));
     }
 
+    public Pack add(Product product) {
+        return of(potentialPack(product));
+    }
+
+    private Stream<Product> potentialPack(Product product) {
+        return Stream.concat(products.stream(), Stream.of(product));
+    }
+
+    public boolean canContain(Product product) {
+        return potentialPack(product)
+                .mapToInt(Product::size)
+                .sum() <= LIMIT;
+    }
+
     @Override
     public Iterator<Product> iterator() {
         return products.iterator();
@@ -42,6 +56,10 @@ public class Pack implements Iterable<Product> {
     @Override
     public Spliterator<Product> spliterator() {
         return products.spliterator();
+    }
+
+    public Stream<Product> stream() {
+        return products.stream();
     }
 
     // Object implementation methods
@@ -70,17 +88,4 @@ public class Pack implements Iterable<Product> {
         return Objects.hash(products);
     }
 
-    public Pack add(Product product) {
-        return of(potentialPack(product));
-    }
-
-    private Stream<Product> potentialPack(Product product) {
-        return Stream.concat(products.stream(), Stream.of(product));
-    }
-
-    public boolean canContain(Product product) {
-        return potentialPack(product)
-                .mapToInt(Product::size)
-                .sum() <= LIMIT;
-    }
 }

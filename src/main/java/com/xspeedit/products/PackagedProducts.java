@@ -43,6 +43,10 @@ public class PackagedProducts implements Iterable<Pack> {
         return packs.spliterator();
     }
 
+    public Stream<Pack> stream() {
+        return packs.stream();
+    }
+
     @Override
     public String toString() {
         return "PackagedProducts{" +
@@ -66,5 +70,6 @@ public class PackagedProducts implements Iterable<Pack> {
     public int hashCode() {
         return Objects.hash(packs);
     }
+
 
 }
