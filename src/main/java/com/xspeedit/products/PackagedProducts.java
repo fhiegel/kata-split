@@ -1,9 +1,7 @@
 package com.xspeedit.products;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,6 +23,10 @@ public class PackagedProducts {
         return new PackagedProducts(packs.collect(Collectors.toList()));
     }
 
+    private static boolean areCollectionEquals(Collection<?> first, Collection<?> second) {
+        return first.containsAll(second) && second.containsAll(first);
+    }
+
     public Stream<Pack> stream() {
         return packs.stream();
     }
@@ -36,6 +38,18 @@ public class PackagedProducts {
     }
 
     // Object implementation methods
+
+    public PackagedProducts replaceWith(Pack pack, Pack newPack) {
+        List<Pack> nextPacks = new ArrayList<>(packs);
+        int indexOfRemoved = nextPacks.indexOf(pack);
+        if (indexOfRemoved < 0) {
+            nextPacks.add(newPack);
+        } else {
+            nextPacks.remove(pack);
+            nextPacks.add(indexOfRemoved, newPack);
+        }
+        return new PackagedProducts(nextPacks);
+    }
 
     @Override
     public String toString() {
@@ -52,13 +66,10 @@ public class PackagedProducts {
         return areCollectionEquals(packs, other.packs);
     }
 
-    private static boolean areCollectionEquals(Collection<?> first, Collection<?> second) {
-        return first.containsAll(second) && second.containsAll(first);
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(packs);
     }
+
 
 }

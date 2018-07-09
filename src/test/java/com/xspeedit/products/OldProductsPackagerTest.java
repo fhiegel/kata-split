@@ -4,13 +4,13 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProductsPackagerTest {
+public class OldProductsPackagerTest {
 
     private static final Product PRODUCT_OF_SIZE_ONE = aProduct(1);
     private static final Product PRODUCT_OF_SIZE_THREE = aProduct(3);
     private static final Product PRODUCT_OF_SIZE_FIVE = aProduct(5);
 
-    private ProductsPackager productsPackager = new ProductsPackager();
+    private ProductsPackager productsPackager = new OldProductsPackager();
 
     @Test
     public void should_package_a_single_product() {
