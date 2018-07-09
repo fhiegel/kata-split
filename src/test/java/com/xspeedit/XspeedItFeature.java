@@ -25,7 +25,10 @@ public class XspeedItFeature {
         XspeedItApp app =  new XspeedItApp(new OptimizedProductsPackager());
         String packagedProducts = app.packageProducts(products);
 
-        assertThat(packagedProducts).isEqualTo("163/82/46/19/8/55/73/7");
+        assertThat(packagedProducts.split("/"))
+                .hasSize(8);
+        assertThat(packagedProducts.replaceAll("/", "").split(""))
+                .containsExactlyInAnyOrder(products.split(""));
     }
 
 }

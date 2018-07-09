@@ -23,13 +23,12 @@ public class PackagedProducts {
         return new PackagedProducts(packs.collect(Collectors.toList()));
     }
 
-    public Stream<Pack> stream() {
-        return packs.stream();
+    private static boolean areCollectionEquals(Collection<?> first, Collection<?> second) {
+        return first.containsAll(second) && second.containsAll(first);
     }
 
-    public Optional<Pack> findFirst(Predicate<Pack> predicate) {
-        return stream().filter(predicate)
-                .findFirst();
+    public Stream<Pack> stream() {
+        return packs.stream();
     }
 
     public PackagedProducts add(Pack pack) {
@@ -38,15 +37,19 @@ public class PackagedProducts {
         return new PackagedProducts(nextPacks);
     }
 
+    // Object implementation methods
+
     public PackagedProducts replaceWith(Pack pack, Pack newPack) {
         List<Pack> nextPacks = new ArrayList<>(packs);
         int indexOfRemoved = nextPacks.indexOf(pack);
-        nextPacks.remove(pack);
-        nextPacks.add(indexOfRemoved, newPack);
+        if (indexOfRemoved < 0) {
+            nextPacks.add(newPack);
+        } else {
+            nextPacks.remove(pack);
+            nextPacks.add(indexOfRemoved, newPack);
+        }
         return new PackagedProducts(nextPacks);
     }
-
-    // Object implementation methods
 
     @Override
     public String toString() {
@@ -61,10 +64,6 @@ public class PackagedProducts {
         if (o == null || getClass() != o.getClass()) return false;
         PackagedProducts other = (PackagedProducts) o;
         return areCollectionEquals(packs, other.packs);
-    }
-
-    private static boolean areCollectionEquals(Collection<?> first, Collection<?> second) {
-        return first.containsAll(second) && second.containsAll(first);
     }
 
     @Override

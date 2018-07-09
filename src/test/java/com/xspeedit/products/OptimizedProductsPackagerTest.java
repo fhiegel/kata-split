@@ -43,4 +43,16 @@ public class OptimizedProductsPackagerTest {
         );
     }
 
+    @Test
+    public void should_package_multiple_product_in_accurate_packs_of_ten() {
+        Products products = Products.of(PRODUCT_OF_LENGTH_THREE, PRODUCT_OF_LENGTH_THREE, PRODUCT_OF_LENGTH_SEVEN, PRODUCT_OF_LENGTH_SEVEN);
+
+        PackagedProducts packagedProducts = productsPackager.packageProducts(products);
+
+        assertThat(packagedProducts.stream()).containsExactly(
+                Pack.of(PRODUCT_OF_LENGTH_SEVEN, PRODUCT_OF_LENGTH_THREE),
+                Pack.of(PRODUCT_OF_LENGTH_SEVEN, PRODUCT_OF_LENGTH_THREE)
+        );
+    }
+
 }
