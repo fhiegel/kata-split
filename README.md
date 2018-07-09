@@ -1,5 +1,7 @@
 XspeedIt
 ========
+[![Build Status](https://travis-ci.org/fhiegel/kata-split.svg?branch=master)](https://travis-ci.org/fhiegel/kata-split)
+[![Coverage Status](https://coveralls.io/repos/github/fhiegel/kata-split/badge.svg?branch=master)](https://coveralls.io/github/fhiegel/kata-split?branch=master)
 
 XspeedIt est une société d'import / export ayant robotisé toute sa chaîne d'emballage de colis.  
 Elle souhaite trouver un algorithme permettant à ses robots d'optimiser le nombre de cartons d'emballage utilisés.
